@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Indomath Web Platform
 
-## Getting Started
+Una plataforma moderna para aprender matemáticas online, construida con Next.js, Supabase, y Stripe.
 
-First, run the development server:
+## Características
 
+- 🎥 Videos de alta calidad alojados en Bunny.net
+- 📚 Cursos estructurados con lecciones
+- 💳 Pagos seguros con Stripe
+- 🔐 Autenticación y autorización con Supabase
+- 📱 Diseño responsive y moderno
+- 🚀 Rendimiento optimizado
+
+## Requisitos Previos
+
+- Node.js 18.x o superior
+- Cuenta en Supabase
+- Cuenta en Stripe
+- Cuenta en Bunny.net
+
+## Configuración del Proyecto
+
+1. Clona el repositorio:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/tu-usuario/indomath-web.git
+cd indomath-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instala las dependencias:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Crea un archivo `.env.local` con las siguientes variables:
+```env
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Stripe Configuration
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
 
-## Learn More
+# Gemini AI Configuration
+GEMINI_API_KEY=your_gemini_api_key_here
 
-To learn more about Next.js, take a look at the following resources:
+# Application Configuration
+NEXT_PUBLIC_BASE_URL=https://your-domain.com
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Email Configuration (if using custom SMTP)
+SMTP_HOST=your_smtp_host_here
+SMTP_PORT=587
+SMTP_USER=your_smtp_user_here
+SMTP_PASS=your_smtp_password_here
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Configura la base de datos en Supabase:
+   - Ejecuta el script SQL en `supabase/schema.sql` en tu proyecto de Supabase
+   - Configura las políticas de seguridad según tus necesidades
 
-## Deploy on Vercel
+5. Inicia el servidor de desarrollo:
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Estructura del Proyecto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+indomath-web/
+├── src/
+│   ├── app/                 # Rutas y páginas de la aplicación
+│   ├── components/          # Componentes reutilizables
+│   ├── lib/                 # Utilidades y configuraciones
+│   └── types/              # Definiciones de tipos TypeScript
+├── public/                 # Archivos estáticos
+├── supabase/              # Scripts y configuraciones de Supabase
+└── package.json
+```
+
+## Despliegue
+
+1. Construye la aplicación:
+```bash
+npm run build
+```
+
+2. Inicia el servidor de producción:
+```bash
+npm start
+```
+
+## Contribuir
+
+1. Haz fork del repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.

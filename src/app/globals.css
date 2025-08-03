@@ -8,7 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: 'Montserrat', sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
@@ -22,5 +22,80 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@keyframes gradientBG {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+.animate-gradient {
+  background: linear-gradient(270deg, #6366f1, #38bdf8, #a78bfa, #06b6d4, #6366f1);
+  background-size: 400% 400%;
+  animation: gradientBG 16s ease-in-out infinite;
+}
+
+.animate-sparkle { animation: sparkle 0.7s cubic-bezier(.4,2,.6,1) both; }
+@keyframes sparkle {
+  0% { opacity: 0; transform: scale(0.5) rotate(-20deg);}
+  30% { opacity: 1; transform: scale(1.2) rotate(10deg);}
+  70% { opacity: 1; transform: scale(1) rotate(-8deg);}
+  100% { opacity: 0; transform: scale(0.7) rotate(0deg);}
+}
+
+/* Math formula styles */
+.math-formula {
+  font-family: 'Times New Roman', serif;
+  font-style: italic;
+  background-color: rgba(59, 130, 246, 0.1);
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Chat animations */
+@keyframes chatPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.chat-pulse {
+  animation: chatPulse 2s ease-in-out infinite;
+}
+
+/* Scrollbar styles for chat */
+.chat-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+@keyframes bgShift {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.03) translate(-10px, -5px); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+.animate-bg {
+  animation: bgShift 20s ease-in-out infinite alternate;
 }
