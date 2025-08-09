@@ -38,7 +38,7 @@ export default function HomePage() {
           />
         </div>
         <motion.div initial={{ opacity: 0, x: -60 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="relative z-10 max-w-2xl">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight text-white drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white drop-shadow-lg">
             Supera cualquier{' '}
             <motion.span
               key={currentWord}
@@ -50,7 +50,7 @@ export default function HomePage() {
               {ANIMATED_WORDS[currentWord]}
             </motion.span>
           </h1>
-          <p className="mb-8 text-xl text-white drop-shadow-md">
+          <p className="mb-8 text-lg sm:text-xl text-white drop-shadow-md max-w-lg">
             Somos Indomath, el portal educativo especializado en la enseñanza de las matemáticas con el método más eficaz. ¡Descubre los materiales y cursos matemáticos!
           </p>
           <Link href="#cursos" className="inline-block bg-blue-600 hover:bg-blue-700 transition-colors px-8 py-3 font-bold shadow text-lg text-white">
@@ -61,18 +61,18 @@ export default function HomePage() {
 
       {/* Nuestros cursos */}
       <motion.section id="cursos" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="py-28">
-        <motion.h2 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-6xl font-extrabold text-center mb-20 text-[#0a1633] px-6 md:px-20">Nuestros cursos</motion.h2>
+        <motion.h2 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-12 sm:mb-16 md:mb-20 text-[#0a1633] px-6 md:px-20">Nuestros cursos</motion.h2>
         <div className="flex flex-col md:flex-row w-full relative">
           <motion.div 
             initial={{ opacity: 0, x: -60 }} 
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.7 }} 
-            className="bg-[#0a1633] text-white p-16 shadow-xl flex flex-col justify-between w-full md:w-1/2 relative z-10 min-h-[400px]"
+            className="bg-[#0a1633] text-white p-6 sm:p-8 md:p-12 lg:p-16 shadow-xl flex flex-col justify-between w-full md:w-1/2 relative z-10 min-h-[350px] sm:min-h-[400px]"
           >
             <div>
-              <h3 className="text-3xl font-bold mb-6">¿Por qué Indomath?</h3>
-              <p className="mb-10 text-xl leading-relaxed">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6">¿Por qué Indomath?</h3>
+              <p className="mb-6 sm:mb-8 md:mb-10 text-base sm:text-lg md:text-xl leading-relaxed">
                 Aprende de forma estructurada y comprensiva. Solo en Indomath encontrarás el método que te lleva desde lo más básico hasta lo más avanzado.
               </p>
             </div>
@@ -87,11 +87,11 @@ export default function HomePage() {
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.7, delay: 0.2 }} 
-            className="bg-white text-[#0a1633] p-16 shadow-xl flex flex-col justify-between w-full md:w-1/2 relative z-5 min-h-[400px]"
+            className="bg-white text-[#0a1633] p-6 sm:p-8 md:p-12 lg:p-16 shadow-xl flex flex-col justify-between w-full md:w-1/2 relative z-5 min-h-[350px] sm:min-h-[400px]"
           >
             <div>
-              <h3 className="text-3xl font-bold mb-6">Ventajas de nuestros cursos</h3>
-              <ul className="list-disc pl-5 space-y-3 text-xl">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6">Ventajas de nuestros cursos</h3>
+              <ul className="list-disc pl-5 space-y-2 sm:space-y-3 text-base sm:text-lg md:text-xl">
                 <li>Videos HD y autoevaluaciones</li>
                 <li>Material descargable y ejercicios</li>
                 <li>Acceso privado y atención personalizada</li>
@@ -105,7 +105,7 @@ export default function HomePage() {
           </motion.div>
         </div>
         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }} className="flex justify-center mt-10 px-6 md:px-20">
-          <Link href="/cursos" className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-500 text-white font-bold px-8 py-4 rounded-xl shadow-xl hover:from-violet-700 hover:to-blue-600 transition-all text-lg group relative overflow-visible cta-sparkle">
+          <Link href="/cursos" className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-blue-500 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-xl hover:from-violet-700 hover:to-blue-600 transition-all text-base sm:text-lg group relative overflow-visible cta-sparkle">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" /></svg>
             ¡Comprar cursos ahora!
             <span className="absolute inset-0 pointer-events-none flex items-center justify-center sparkle-cta" style={{display:'none'}}>
@@ -123,22 +123,22 @@ export default function HomePage() {
 
       {/* Beneficios */}
       <motion.section initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="py-29 px-6 md:px-20">
-        <motion.h2 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-6xl font-extrabold text-center mb-14 text-[#0a1633]">Beneficios</motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-26 max-w-6xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="bg-[#0a1633] text-white p-8 flex flex-col items-center shadow">
-            <span className="text-5xl mb-4">📚</span>
-            <h4 className="font-bold text-xl mb-2">Aprende</h4>
-            <p className="text-center text-lg">Utiliza el sentido lógico y conecta los materiales de todas las áreas matemáticas.</p>
+        <motion.h2 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-8 sm:mb-12 md:mb-14 text-[#0a1633]">Beneficios</motion.h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 lg:gap-26 max-w-6xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="bg-[#0a1633] text-white p-6 sm:p-8 flex flex-col items-center shadow rounded-lg sm:col-span-2 md:col-span-1">
+            <span className="text-4xl sm:text-5xl mb-3 sm:mb-4">📚</span>
+            <h4 className="font-bold text-lg sm:text-xl mb-2">Aprende</h4>
+            <p className="text-center text-sm sm:text-base md:text-lg">Utiliza el sentido lógico y conecta los materiales de todas las áreas matemáticas.</p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="bg-blue-500 text-white p-8 flex flex-col items-center shadow">
-            <span className="text-5xl mb-4">🎯</span>
-            <h4 className="font-bold text-xl mb-2">Entiende</h4>
-            <p className="text-center text-lg">Usa recursos visuales y prácticos para resolver cualquier tipo de problema.</p>
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="bg-blue-500 text-white p-6 sm:p-8 flex flex-col items-center shadow rounded-lg">
+            <span className="text-4xl sm:text-5xl mb-3 sm:mb-4">🎯</span>
+            <h4 className="font-bold text-lg sm:text-xl mb-2">Entiende</h4>
+            <p className="text-center text-sm sm:text-base md:text-lg">Usa recursos visuales y prácticos para resolver cualquier tipo de problema.</p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="bg-blue-200 text-[#0a1633] p-8 flex flex-col items-center shadow">
-            <span className="text-5xl mb-4">🏆</span>
-            <h4 className="font-bold text-xl mb-2">Aprueba</h4>
-            <p className="text-center text-lg">Llega al examen listo, consigue los mejores resultados en menos tiempo.</p>
+          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className="bg-blue-200 text-[#0a1633] p-6 sm:p-8 flex flex-col items-center shadow rounded-lg sm:col-span-2 md:col-span-1">
+            <span className="text-4xl sm:text-5xl mb-3 sm:mb-4">🏆</span>
+            <h4 className="font-bold text-lg sm:text-xl mb-2">Aprueba</h4>
+            <p className="text-center text-sm sm:text-base md:text-lg">Llega al examen listo, consigue los mejores resultados en menos tiempo.</p>
           </motion.div>
         </div>
       </motion.section>

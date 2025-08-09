@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/wp-content/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'iuntmgotfksbmgzwnwsw.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/**',
+      },
     ],
   },
   // Add webpack configuration to handle locale module resolution and Supabase Realtime

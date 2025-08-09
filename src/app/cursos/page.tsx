@@ -93,7 +93,7 @@ export default function CursosPage() {
   const [dbCourses, setDbCourses] = useState<DatabaseCourse[]>([]);
   const [userAccess, setUserAccess] = useState<Record<string, UserCourseAccess>>({});
   const [loading, setLoading] = useState(true);
-  const [debugInfo, setDebugInfo] = useState<string>('');
+
 
   // Cargar cursos desde la base de datos
   useEffect(() => {
@@ -161,39 +161,7 @@ export default function CursosPage() {
     }
   }, [user?.id, dbCourses.length, authLoading, checkAccess, dbCourses, user]);
 
-  // Función para forzar verificación de acceso
-  const forceAccessCheck = async () => {
-    if (!user || dbCourses.length === 0) {
-      setDebugInfo('No user or no courses');
-      return;
-    }
 
-    setDebugInfo('Verificando acceso...');
-    console.log('🔄 Forzando verificación de acceso...');
-
-    const accessChecks = await Promise.all(
-      dbCourses.map(async (course) => {
-        const courseType = course.slug === 'ciencias' ? 'CIENCIAS' : 'CCSS';
-        console.log(`🔍 Forcing access check for course: ${course.slug} (${courseType})`);
-        
-                  const accessInfo = await checkAccess('course', course.slug, courseType, user);
-        
-        console.log(`✅ Forced access result for ${course.slug}:`, accessInfo);
-        
-        return {
-          [course.slug]: {
-            hasAccess: accessInfo.hasAccess,
-            expiresAt: accessInfo.expiresAt
-          }
-        };
-      })
-    );
-
-    const accessMap = accessChecks.reduce((acc, curr) => ({ ...acc, ...curr }), {});
-    console.log('🎯 Forced access map:', accessMap);
-    setUserAccess(accessMap);
-    setDebugInfo(`Verificación completada: ${JSON.stringify(accessMap, null, 2)}`);
-  };
 
   if (loading || authLoading) {
     return (
@@ -223,28 +191,7 @@ export default function CursosPage() {
           }
         </p>
 
-        {/* Debug info para desarrollo */}
-        {user && (
-          <div className="relative z-10 max-w-4xl mx-auto mb-8 p-4 bg-gray-800/50 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-white font-semibold">🔧 Debug Info</h3>
-              <button
-                onClick={forceAccessCheck}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
-              >
-                Forzar Verificación
-              </button>
-            </div>
-            <div className="text-xs text-gray-300">
-              <div>Usuario: {user.email}</div>
-            </div>
-            {debugInfo && (
-              <div className="mt-2 p-2 bg-gray-900/50 rounded text-xs text-green-300 font-mono overflow-auto max-h-32">
-                {debugInfo}
-              </div>
-            )}
-          </div>
-        )}
+
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 relative z-10">
           
@@ -285,7 +232,7 @@ export default function CursosPage() {
                     whileInView={{ opacity: 1, y: 0 }} 
                     viewport={{ once: true }} 
                     transition={{ duration: 0.7, delay: 0.1 }} 
-                    className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32"
+                    className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 mb-20 sm:mb-32"
                   >
                     {dbCourses.map((course) => {
                       const access = userAccess[course.slug];
@@ -303,11 +250,11 @@ export default function CursosPage() {
                             area={course.slug as "ciencias" | "ccss"}
                             hasAccess={true}
                           />
-                          <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg z-30">
+                          <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-green-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg z-30">
                             Acceso Completo
                           </div>
                           {access.expiresAt && (
-                            <div className="absolute bottom-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg z-30">
+                            <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-blue-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-semibold shadow-lg z-30">
                               Expira: {new Date(access.expiresAt).toLocaleDateString('es-ES')}
                             </div>
                           )}
@@ -341,7 +288,7 @@ export default function CursosPage() {
             whileInView={{ opacity: 1, y: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.7, delay: 0.1 }} 
-            className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 mb-20 sm:mb-32"
           >
             {dbCourses.map((course) => {
               const access = userAccess[course.slug];
@@ -383,7 +330,7 @@ export default function CursosPage() {
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true }} 
                 transition={{ duration: 0.7, delay: 0.3 }} 
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mb-32"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 mb-20 sm:mb-32"
               >
                 {cursos[0].modulos.map((m) => (
                   <ParallaxCourseCard

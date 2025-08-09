@@ -57,7 +57,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('✅ Message validated:', message.substring(0, 50) + '...');
+    // Validar longitud del mensaje
+    if (message.length > 10000) {
+      console.error('❌ Message too long:', message.length);
+      return NextResponse.json(
+        { error: 'Mensaje demasiado largo (máximo 10,000 caracteres)' },
+        { status: 400 }
+      );
+    }
+
+    // Sanitizar mensaje básico
+    const sanitizedMessage = message.trim();
+
+    console.log('✅ Message validated:', sanitizedMessage.substring(0, 50) + '...');
 
     const chatService = ChatService.getInstance();
     const geminiService = GeminiService.getInstance();
@@ -88,14 +100,14 @@ export async function POST(request: NextRequest) {
       currentChatId,
       user.id,
       'user',
-      message,
+      sanitizedMessage,
       fileUpload
     );
     console.log('✅ User message saved:', userMessage.id);
 
     // Obtener respuesta de Gemini
     console.log('🤖 Getting response from Gemini...');
-    const geminiResponse = await geminiService.sendMessage(message, conversationHistory);
+    const geminiResponse = await geminiService.sendMessage(sanitizedMessage, conversationHistory);
 
     if (geminiResponse.error) {
       console.error('❌ Gemini error:', geminiResponse.error);

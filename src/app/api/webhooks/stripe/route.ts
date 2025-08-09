@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabase } from '@/lib/supabase';
+import { EmailService } from '@/lib/email-service';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-05-28.basil'
+  apiVersion: '2025-07-30.basil'
 });
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -95,12 +96,16 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     
     const existingUser = existingUsers.users.find(user => user.email === email);
     
+    let tempPassword: string | null = null;
+    let isNewUser = false;
+    
     if (existingUser) {
       userId = existingUser.id;
       console.log(`User already exists: ${userId}`);
     } else {
       // Generar una contraseña temporal
-      const tempPassword = generateRandomPassword();
+      tempPassword = generateRandomPassword();
+      isNewUser = true;
       
       // Crear usuario automáticamente
       const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
@@ -109,7 +114,9 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         password: tempPassword,
         user_metadata: {
           created_via_payment: true,
-          stripe_customer_id: session.customer as string
+          stripe_customer_id: session.customer as string,
+          temp_password: tempPassword, // Guardar la contraseña temporal en metadata
+          created_at: new Date().toISOString()
         }
       });
 
@@ -119,17 +126,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       }
 
       userId = newUser.user.id;
-      console.log(`Created new user: ${userId} for email: ${email}`);
-
-      // Enviar email de bienvenida con enlace para establecer contraseña
-      const { error: resetError } = await supabase.auth.admin.generateLink({
-        type: 'recovery',
-        email: email
-      });
-
-      if (resetError) {
-        console.error('Error generating password reset link:', resetError);
-      }
+      console.log(`✅ Created new user: ${userId} for email: ${email}`);
     }
 
     // Calcular fecha de expiración (1 año desde ahora)
@@ -179,7 +176,85 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       }
     }
 
-    console.log(`Successfully processed purchase for user ${userId}, product ${productId}`);
+    // Enviar emails
+    const emailPromises = [];
+    
+    // Email de bienvenida para usuarios nuevos
+    if (isNewUser && tempPassword) {
+      emailPromises.push(
+        EmailService.sendWelcomeEmail({
+          email: email,
+          tempPassword: tempPassword,
+          productName: productName,
+          expiresAt: expiresAt.toLocaleDateString('es-ES')
+        }).then(success => ({
+          type: 'welcome',
+          success,
+          email
+        }))
+      );
+    }
+    
+    // Email de confirmación de pago para todos los usuarios
+    emailPromises.push(
+      EmailService.sendPaymentConfirmation({
+        email: email,
+        productName: productName,
+        amount: `${((session.amount_total || 0) / 100).toFixed(2)}€`,
+        transactionId: session.payment_intent as string || session.id,
+        purchaseDate: new Date().toLocaleDateString('es-ES'),
+        expiresAt: expiresAt.toLocaleDateString('es-ES')
+      }).then(success => ({
+        type: 'confirmation',
+        success,
+        email
+      }))
+    );
+
+    // Enviar emails en paralelo
+    try {
+      const emailResults = await Promise.all(emailPromises);
+      
+      let welcomeEmailSent = false;
+      let confirmationEmailSent = false;
+      
+      emailResults.forEach(result => {
+        if (result.type === 'welcome') {
+          welcomeEmailSent = result.success;
+          console.log(result.success 
+            ? `✅ Email de bienvenida enviado a: ${result.email}` 
+            : `❌ Error enviando email de bienvenida a: ${result.email}`
+          );
+        } else if (result.type === 'confirmation') {
+          confirmationEmailSent = result.success;
+          console.log(result.success 
+            ? `✅ Email de confirmación enviado a: ${result.email}` 
+            : `❌ Error enviando email de confirmación a: ${result.email}`
+          );
+        }
+      });
+
+      // Actualizar los metadatos de la sesión de Stripe
+      if (isNewUser && tempPassword) {
+        try {
+          await stripe.checkout.sessions.update(session.id, {
+            metadata: {
+              ...session.metadata,
+              tempPassword: tempPassword,
+              userEmail: email,
+              welcomeEmailSent: welcomeEmailSent.toString(),
+              confirmationEmailSent: confirmationEmailSent.toString()
+            }
+          });
+        } catch (updateError) {
+          console.error('Error updating session metadata:', updateError);
+        }
+      }
+    } catch (emailError) {
+      console.error('Error sending emails:', emailError);
+    }
+
+    console.log(`✅ Successfully processed purchase for user ${userId}, product ${productId}`);
   } catch (error) {
     console.error('Error processing checkout session:', error);
   }

@@ -55,7 +55,7 @@ export default function Navbar() {
 
   return (
     <header className="bg-black">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-6" aria-label="Global">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-3 sm:p-4 lg:px-6" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center">
             <Image

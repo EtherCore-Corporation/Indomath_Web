@@ -28,13 +28,21 @@ export const coursesData: Course[] = [
   {
     id: 'ciencias',
     slug: 'ciencias',
-    title: 'Matemáticas Ciencias',
-    description: 'Curso completo de matemáticas para estudiantes de Ciencias',
-    longDescription: `Este curso está diseñado específicamente para estudiantes de Ciencias, cubriendo todos los temas fundamentales de matemáticas necesarios para el éxito académico. Incluye álgebra y matrices, geometría en el espacio, y análisis matemático completo.`,
-    price: 89.99,
-    level: 'Avanzado',
-    duration: '6 meses',
-    imageUrl: '/images/course-ciencias.jpg',
+    title: 'Curso 2º Bach (Ciencias)',
+    description: 'Curso completo de matemáticas para 2º de Bachillerato Ciencias',
+    longDescription: `Prepara tu camino hacia el éxito en 2º de bachillerato en ciencias con nuestro completo curso en línea en Indomath.es. En este programa académico, abordarás de manera integral los siguientes bloques de matemáticas:
+
+Álgebra y Matrices: Explora conceptos fundamentales de álgebra y matrices, desarrollando habilidades esenciales para resolver problemas matemáticos complejos.
+Geometría: Sumérgete en el mundo de la geometría, donde comprenderás y aplicarás principios geométricos en situaciones prácticas y académicas.
+Análisis: Aprende técnicas avanzadas de análisis matemático, incluyendo límites, derivadas e integrales, para comprender a fondo las funciones y sus aplicaciones.
+
+Nuestro curso está diseñado para proporcionarte una base sólida en matemáticas, lo que te permitirá enfrentar con confianza los desafíos académicos y fortalecer tus habilidades para futuros estudios en el campo de las ciencias.
+
+Nuestro equipo de instructores altamente calificados está comprometido en brindarte una experiencia de aprendizaje excepcional. Te acompañarán en cada paso, ofreciéndote apoyo personalizado y aclarando tus dudas.`,
+    price: 49.99,
+    level: 'Intermedio',
+    duration: '8 horas 46 minutos',
+    imageUrl: 'https://indomath.es/wp-content/uploads/2023/09/1-2.png',
     modules: [
       {
         title: 'Álgebra y Matrices',
@@ -149,13 +157,19 @@ export const coursesData: Course[] = [
   {
     id: 'ccss',
     slug: 'ccss',
-    title: 'Matemáticas CCSS',
-    description: 'Curso completo de matemáticas para estudiantes de Ciencias Sociales',
-    longDescription: `Este curso está diseñado específicamente para estudiantes de Ciencias Sociales, cubriendo todos los temas fundamentales de matemáticas necesarios para el éxito académico. Incluye álgebra y matrices, análisis matemático, y estadística y probabilidad.`,
-    price: 89.99,
-    level: 'Avanzado',
-    duration: '6 meses',
-    imageUrl: '/images/course-ccss.jpg',
+    title: 'Curso 2º Bach (Ciencias Sociales)',
+    description: 'Curso completo de matemáticas para 2º de Bachillerato CCSS',
+    longDescription: `Prepara tu camino hacia el éxito académico en 2º de bachillerato en letras con nuestro completo curso de matemáticas. En este curso, abordaremos los siguientes bloques de contenido clave:
+
+Álgebra y Matrices: Aprenderás los fundamentos del álgebra y cómo aplicar matrices para resolver problemas matemáticos complejos.
+Análisis: Exploraremos conceptos de análisis matemático, incluyendo límites, derivadas e integrales, para mejorar tu comprensión de las funciones y sus aplicaciones.
+Estadística y Probabilidad: Combinaremos los conceptos de estadística y probabilidad para que domines las técnicas de recopilación, análisis y presentación de datos, además de comprender la teoría de la probabilidad y su aplicación en situaciones del mundo real.
+
+Este curso te proporcionará una base sólida en matemáticas, lo que te permitirá abordar con confianza los desafíos académicos y profesionales. Únete a nosotros y descubre cómo estas áreas de las matemáticas pueden enriquecer tu conocimiento y tu futuro.`,
+    price: 49.99,
+    level: 'Intermedio',
+    duration: '11 horas 4 minutos',
+    imageUrl: 'https://indomath.es/wp-content/uploads/2025/05/1.png',
     modules: [
       {
         title: 'Álgebra y Matrices',

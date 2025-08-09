@@ -118,24 +118,24 @@ export default function CompleteCourseCard({ title, img, price, badge, area, has
         {/* Overlay para oscurecer ligeramente la parte inferior y mejorar la legibilidad de los botones */}
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         {/* Precio tipo post-it con descuento */}
-        <div className="absolute top-4 left-4 bg-yellow-300 text-gray-900 text-sm font-bold px-3 py-2 rounded-lg shadow-lg z-20 border-2 border-yellow-400 rotate-[-6deg]">
+        <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-yellow-300 text-gray-900 text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 sm:py-2 rounded-lg shadow-lg z-20 border-2 border-yellow-400 rotate-[-6deg]">
           <div className="text-xs text-gray-600 line-through">99.99 €</div>
-          <div className="text-base text-gray-900">{price.toFixed(2)} €</div>
+          <div className="text-sm sm:text-base text-gray-900">{price.toFixed(2)} €</div>
         </div>
         {/* Badge */}
         {badge && (
-          <span className="absolute top-4 right-4 bg-gradient-to-r from-violet-600 to-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-20">
+          <span className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-gradient-to-r from-violet-600 to-blue-500 text-white text-xs font-bold px-2 sm:px-3 py-1 rounded-full shadow-lg z-20">
             {badge}
           </span>
         )}
         {/* Botones sobre la imagen, en la parte inferior */}
-        <div className="relative z-20 w-full flex flex-col items-center gap-3 px-6 pb-6 mt-auto">
-          <div className="w-full flex flex-col md:flex-row gap-3 justify-center">
+        <div className="relative z-20 w-full flex flex-col items-center gap-2 sm:gap-3 px-4 sm:px-6 pb-4 sm:pb-6 mt-auto">
+          <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
             {hasAccess ? (
               // Si el usuario tiene acceso, mostrar solo el botón de acceder
               <Link
                 href={`/cursos/${area}`}
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 text-white font-bold px-8 py-3 rounded-xl shadow-xl hover:from-green-700 hover:to-emerald-600 transition-all text-lg backdrop-blur-md bg-opacity-80 min-w-[160px]"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 text-white font-bold px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-xl shadow-xl hover:from-green-700 hover:to-emerald-600 transition-all text-sm sm:text-base md:text-lg backdrop-blur-md bg-opacity-80 min-w-[140px] sm:min-w-[160px]"
               >
                 <CheckCircleIcon className="w-5 h-5" /> Acceder al curso
               </Link>

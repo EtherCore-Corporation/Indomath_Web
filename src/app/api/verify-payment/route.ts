@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
+import { EmailService } from '@/lib/email-service';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-05-28.basil'
+  apiVersion: '2025-07-30.basil'
 });
 
 // Cliente admin de Supabase para operaciones administrativas
@@ -209,13 +210,16 @@ async function processFreePurchase(session: Stripe.Checkout.Session) {
   const existingUser = existingUsers.users.find((user) => user.email === email);
   
   let userId: string;
+  let tempPassword: string | null = null;
+  let isNewUser = false;
   
   if (existingUser) {
     userId = existingUser.id;
     console.log(`✅ Usuario ya existe: ${userId}`);
   } else {
     // Generar una contraseña temporal
-    const tempPassword = generateRandomPassword();
+    tempPassword = generateRandomPassword();
+    isNewUser = true;
     
     // Crear usuario automáticamente
     const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
@@ -224,7 +228,9 @@ async function processFreePurchase(session: Stripe.Checkout.Session) {
       password: tempPassword,
       user_metadata: {
         created_via_payment: true,
-        stripe_customer_id: session.customer as string
+        stripe_customer_id: session.customer as string,
+        temp_password: tempPassword, // Guardar la contraseña temporal en metadata
+        created_at: new Date().toISOString()
       }
     });
 
@@ -306,6 +312,74 @@ async function processFreePurchase(session: Stripe.Checkout.Session) {
       });
     
     console.log('✅ Acceso por defecto al curso configurado');
+  }
+
+  // Enviar emails
+  const emailPromises = [];
+  
+  // Email de bienvenida para usuarios nuevos
+  if (isNewUser && tempPassword) {
+    emailPromises.push(
+      EmailService.sendWelcomeEmail({
+        email: email,
+        tempPassword: tempPassword,
+        productName: productName,
+        expiresAt: expiresAt.toLocaleDateString('es-ES')
+      }).then(success => ({
+        type: 'welcome',
+        success,
+        email
+      }))
+    );
+  }
+  
+  // Email de confirmación de pago para todos los usuarios
+  emailPromises.push(
+    EmailService.sendPaymentConfirmation({
+      email: email,
+      productName: productName,
+      amount: session.amount_total ? `${(session.amount_total / 100).toFixed(2)}€` : 'Gratuito',
+      transactionId: session.payment_intent as string || session.id,
+      purchaseDate: new Date().toLocaleDateString('es-ES'),
+      expiresAt: expiresAt.toLocaleDateString('es-ES')
+    }).then(success => ({
+      type: 'confirmation',
+      success,
+      email
+    }))
+  );
+
+  // Enviar emails en paralelo
+  try {
+    const emailResults = await Promise.all(emailPromises);
+    
+    let welcomeEmailSent = false;
+    let confirmationEmailSent = false;
+    
+    emailResults.forEach(result => {
+      if (result.type === 'welcome') {
+        welcomeEmailSent = result.success;
+        console.log(result.success 
+          ? `✅ Email de bienvenida enviado a: ${result.email}` 
+          : `❌ Error enviando email de bienvenida a: ${result.email}`
+        );
+      } else if (result.type === 'confirmation') {
+        confirmationEmailSent = result.success;
+        console.log(result.success 
+          ? `✅ Email de confirmación enviado a: ${result.email}` 
+          : `❌ Error enviando email de confirmación a: ${result.email}`
+        );
+      }
+    });
+
+    // Marcar que se enviaron los emails en los metadatos
+    session.metadata = {
+      ...session.metadata,
+      welcomeEmailSent: welcomeEmailSent.toString(),
+      confirmationEmailSent: confirmationEmailSent.toString()
+    };
+  } catch (emailError) {
+    console.error('Error sending emails:', emailError);
   }
 
   console.log(`✅ Pago gratuito procesado exitosamente para usuario ${userId}, producto ${productId}`);

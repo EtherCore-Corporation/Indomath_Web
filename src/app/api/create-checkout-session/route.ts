@@ -2,8 +2,27 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-05-28.basil'
+  apiVersion: '2025-07-30.basil'
 });
+
+// Función para validar URLs
+function isValidUrl(url: string): boolean {
+  try {
+    const parsedUrl = new URL(url);
+    const allowedHosts = [
+      'localhost',
+      'indomath.es',
+      new URL(process.env.NEXT_PUBLIC_BASE_URL || '').hostname
+    ].filter(Boolean);
+    
+    return allowedHosts.some(host => 
+      parsedUrl.hostname === host || 
+      parsedUrl.hostname.endsWith(`.${host}`)
+    );
+  } catch {
+    return false;
+  }
+}
 
 // Mapeo de productos Stripe a contenido de la aplicación
 const PRODUCT_MAPPING = {
@@ -86,12 +105,50 @@ const PRODUCT_MAPPING = {
 
 export async function POST(request: NextRequest) {
   try {
-    const { priceId, productId, couponCode, successUrl, cancelUrl } = await request.json();
+    // Validar content type
+    const contentType = request.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      return NextResponse.json({ error: 'Content-Type debe ser application/json' }, { status: 400 });
+    }
+
+    // Validar origen si es necesario
+    const origin = request.headers.get('origin');
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://indomath.es',
+      process.env.NEXT_PUBLIC_BASE_URL
+    ].filter(Boolean);
+    
+    if (origin && !allowedOrigins.includes(origin)) {
+      return NextResponse.json({ error: 'Origen no autorizado' }, { status: 403 });
+    }
+
+    const body = await request.json();
+    
+    // Validar entrada
+    const { priceId, productId, couponCode, successUrl, cancelUrl } = body;
+    
+    if (!priceId || typeof priceId !== 'string') {
+      return NextResponse.json({ error: 'priceId es requerido y debe ser string' }, { status: 400 });
+    }
+    
+    if (!productId || typeof productId !== 'string') {
+      return NextResponse.json({ error: 'productId es requerido y debe ser string' }, { status: 400 });
+    }
 
     // Verificar que el producto existe en nuestro mapeo
     const productInfo = PRODUCT_MAPPING[productId as keyof typeof PRODUCT_MAPPING];
     if (!productInfo) {
       return NextResponse.json({ error: 'Producto no válido' }, { status: 400 });
+    }
+
+    // Validar URLs si se proporcionan
+    if (successUrl && !isValidUrl(successUrl)) {
+      return NextResponse.json({ error: 'successUrl no es válida' }, { status: 400 });
+    }
+    
+    if (cancelUrl && !isValidUrl(cancelUrl)) {
+      return NextResponse.json({ error: 'cancelUrl no es válida' }, { status: 400 });
     }
 
     // Obtener el precio del producto
@@ -123,11 +180,17 @@ export async function POST(request: NextRequest) {
       // Permitir que el usuario ingrese su email durante el checkout
       billing_address_collection: 'required',
       customer_creation: 'always', // Crear cliente automáticamente
-      // Habilitar Google Pay y Apple Pay
+      // Habilitar métodos de pago digitales
       payment_method_options: {
         card: {
           request_three_d_secure: 'automatic'
         }
+      },
+      // Configurar opciones de checkout para dispositivos móviles
+      ui_mode: 'hosted',
+      // Habilitar configuraciones para wallets digitales
+      automatic_tax: {
+        enabled: false // Puedes habilitar si necesitas cálculo automático de impuestos
       }
     };
 
