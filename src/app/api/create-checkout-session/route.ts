@@ -12,12 +12,15 @@ function isValidUrl(url: string): boolean {
     const allowedHosts = [
       'localhost',
       'indomath.es',
+      'vercel.app',
       new URL(process.env.NEXT_PUBLIC_BASE_URL || '').hostname
     ].filter(Boolean);
     
     return allowedHosts.some(host => 
       parsedUrl.hostname === host || 
-      parsedUrl.hostname.endsWith(`.${host}`)
+      parsedUrl.hostname.endsWith(`.${host}`) ||
+      parsedUrl.hostname === 'localhost' ||
+      parsedUrl.hostname.endsWith('.vercel.app')
     );
   } catch {
     return false;
@@ -116,10 +119,17 @@ export async function POST(request: NextRequest) {
     const allowedOrigins = [
       'http://localhost:3000',
       'https://indomath.es',
+      'http://indomath.es',
+      'https://www.indomath.es',
+      'http://www.indomath.es',
+      'https://indomath-web.vercel.app',
       process.env.NEXT_PUBLIC_BASE_URL
     ].filter(Boolean);
-    
-    if (origin && !allowedOrigins.includes(origin)) {
+
+    // Permitir dominios de Vercel
+    const isVercelDomain = origin?.endsWith('.vercel.app');
+
+    if (origin && !allowedOrigins.includes(origin) && !isVercelDomain) {
       return NextResponse.json({ error: 'Origen no autorizado' }, { status: 403 });
     }
 
