@@ -10,8 +10,8 @@ import ContentGuard from '@/components/ContentGuard';
 import { supabase } from '@/lib/supabase';
 import { useAuthContext } from '@/components/AuthProvider';
 import Image from 'next/image';
-const IMG_CIENCIAS = 'https://indomath.es/wp-content/uploads/2023/09/1-2.png';
-const IMG_CCSS = 'https://indomath.es/wp-content/uploads/2025/05/1.png';
+const IMG_CIENCIAS = 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Ciencias%20Mates.png';
+const IMG_CCSS = 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/CCSS%20Mates.png';
 const DURACION_CIENCIAS = '+100h';
 const DURACION_CCSS = '+80h';
 

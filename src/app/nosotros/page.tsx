@@ -253,7 +253,7 @@ function MetodoInteractivo() {
             className="absolute right-0 top-1/2 transform -translate-y-1/4 translate-x-1/4 hidden lg:block"
           >
             <Image
-              src="https://indomath.es/wp-content/uploads/2023/10/MORPH-4.png"
+              src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/MORPH-4.png"
               alt="Mascota Indomath"
               width={300}
               height={300}
@@ -438,7 +438,7 @@ export default function NosotrosPage() {
             >
               <div className="relative z-10">
                 <Image
-                  src="https://indomath.es/wp-content/uploads/2023/10/MORPH-5.png"
+                  src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/MORPH-5.png"
                   alt="Profesor Principal"
                   width={150}
                   height={150}
@@ -462,7 +462,7 @@ Licenciado en Ciencias de la Computación y Director de Marketing               
             >
               <div className="relative z-10">
                 <Image
-                  src="https://indomath.es/wp-content/uploads/2023/10/MORPH-4.png"
+                  src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/MORPH-4.png"
                   alt="Profesora Asociada"
                   width={150}
                   height={150}

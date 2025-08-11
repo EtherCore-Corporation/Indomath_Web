@@ -42,7 +42,7 @@ Nuestro equipo de instructores altamente calificados está comprometido en brind
     price: 49.99,
     level: 'Intermedio',
     duration: '8 horas 46 minutos',
-    imageUrl: 'https://indomath.es/wp-content/uploads/2023/09/1-2.png',
+    imageUrl: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Ciencias%20Mates.png',
     modules: [
       {
         title: 'Álgebra y Matrices',
@@ -169,7 +169,7 @@ Este curso te proporcionará una base sólida en matemáticas, lo que te permiti
     price: 49.99,
     level: 'Intermedio',
     duration: '11 horas 4 minutos',
-    imageUrl: 'https://indomath.es/wp-content/uploads/2025/05/1.png',
+    imageUrl: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/CCSS%20Mates.png',
     modules: [
       {
         title: 'Álgebra y Matrices',

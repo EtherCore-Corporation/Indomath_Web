@@ -15,26 +15,26 @@ const cursos = [
     area: 'ciencias',
     completo: {
       nombre: '2 Bachillerato Ciencias',
-      img: 'https://indomath.es/wp-content/uploads/2023/09/1-2.png',
+      img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Ciencias%20Mates.png',
       precio: 49.99,
       badge: 'Recomendado',
     },
     modulos: [
       {
         nombre: 'ÁLGEBRA Y MATRICES',
-        img: 'https://indomath.es/wp-content/uploads/2023/09/2-2.png',
+        img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Algebra%20y%20Matrices%20CIENCIAS.png',
         precio: 39.99,
         descripcion: 'Bloque 1 Álgebra y Matrices 2º Bach (Ciencias)',
       },
       {
         nombre: 'GEOMETRÍA',
-        img: 'https://indomath.es/wp-content/uploads/2023/09/3-2.png',
+        img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/GEOMETRIA%20CIENCIAS.png',
         precio: 39.99,
         descripcion: 'Bloque 2 Geometría 2º Bach (Ciencias)',
       },
       {
         nombre: 'ANÁLISIS',
-        img: 'https://indomath.es/wp-content/uploads/2023/09/4-2.png',
+        img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/ANALISIS%20CIENCIAS.png',
         precio: 39.99,
         descripcion: 'Bloque 3 Análisis 2º Bach (Ciencias)',
       },
@@ -44,26 +44,26 @@ const cursos = [
     area: 'ccss',
     completo: {
       nombre: '2 Bachillerato C.C.S.S.',
-      img: 'https://indomath.es/wp-content/uploads/2025/05/1.png',
+      img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/CCSS%20Mates.png',
       precio: 49.99,
       badge: 'Popular',
     },
     modulos: [
       {
         nombre: 'ÁLGEBRA Y MATRICES',
-        img: 'https://indomath.es/wp-content/uploads/2025/05/2.png',
+        img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Algebra%20y%20Matrices%20CCSS.png',
         precio: 39.99,
         descripcion: 'Bloque 1 Álgebra y Matrices 2º Bach (Ciencias Sociales)',
       },
       {
         nombre: 'ANÁLISIS',
-        img: 'https://indomath.es/wp-content/uploads/2025/05/3.png',
+        img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/ANALISIS%20CCSS.png',
         precio: 39.99,
         descripcion: 'Bloque 2 Análisis 2º Bach (Ciencias Sociales)',
       },
       {
         nombre: 'ESTADÍSTICA Y PROBABILIDAD',
-        img: 'https://indomath.es/wp-content/uploads/2025/05/4.png',
+        img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Estadistica%20y%20probabilidad%20CCSS.png',
         precio: 39.99,
         descripcion: 'Bloque 3 Estadística y Probabilidad 2º Bach (Ciencias Sociales)',
       },

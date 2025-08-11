@@ -29,9 +29,9 @@ export default function HomePage() {
     <main className="min-h-screen w-full font-sans">
       {/* Hero Section */}
       <motion.section initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="relative min-h-screen flex items-center px-6 md:px-20 py-20 text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0">
           <Image
-            src="https://indomath.es/wp-content/uploads/2023/08/Estadistica-y-probabilidad-2o-Bach-Letras-6.png"
+            src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Portada%20principal.png"
             alt="Portada Indomath"
             fill
             className="object-cover"
@@ -159,7 +159,7 @@ export default function HomePage() {
           </div>
           <div className="flex-1 flex justify-center">
             <Image
-              src="https://indomath.es/wp-content/uploads/2023/08/3-2.png"
+              src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/3-2.png"
               alt="Engranajes"
               width={320}
               height={320}
@@ -175,7 +175,7 @@ export default function HomePage() {
           </div>
           <div className="flex-1 flex justify-center">
             <Image
-              src="https://indomath.es/wp-content/uploads/2023/08/4-3.png"
+              src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/4-3.png"
               alt="Cámara pro"
               width={320}
               height={320}
@@ -191,7 +191,7 @@ export default function HomePage() {
           </div>
           <div className="flex-1 flex justify-center">
             <Image
-              src="https://indomath.es/wp-content/uploads/2023/08/Brand-2.png"
+              src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Brand-2.png"
               alt="Cabeza humana pro"
               width={320}
               height={320}
@@ -324,21 +324,21 @@ export default function HomePage() {
 
 const testimonios = [
   {
-    img: 'https://indomath.es/wp-content/uploads/2023/08/2.png',
+    img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Testimonio%20chica%201.png',
     alt: 'Chica 1',
     nombre: 'Lucía García',
     curso: '2º Bachillerato Ciencias',
     texto: '"Al principio me costaba mucho entender las derivadas y los límites. Con los videos de Indomath pude ver paso a paso cómo se resolvían y ahora hasta disfruto haciendo ejercicios. ¡He pasado de un 5 a un 8 en matemáticas!"',
   },
   {
-    img: 'https://indomath.es/wp-content/uploads/2023/08/3.png',
+    img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Testimonio%20chico.png',
     alt: 'Chico 2',
     nombre: 'Carlos Martínez',
     curso: '2º Bachillerato CCSS',
     texto: '"Las explicaciones son súper claras y lo mejor es que puedo ver los videos las veces que necesite. La parte de probabilidad que tanto me costaba ahora la entiendo perfectamente. El profesor explica como si estuviera a tu lado."',
   },
   {
-    img: 'https://indomath.es/wp-content/uploads/2023/08/4.png',
+    img: 'https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/Testimonio%20chica%202.png',
     alt: 'Chica 2',
     nombre: 'Marta Rodríguez',
     curso: '2º Bachillerato Ciencias',

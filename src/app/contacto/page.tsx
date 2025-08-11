@@ -13,7 +13,7 @@ export default function ContactoPage() {
       <div className="relative flex flex-1 min-h-[80vh]">
         {/* Imagen de fondo cubriendo toda la sección */}
         <Image
-          src="https://indomath.es/wp-content/uploads/2023/08/Add-a-heading-17.png"
+          src="https://iuntmgotfksbmgzwnwsw.supabase.co/storage/v1/object/public/images/CONTACTO.png"
           alt="Chica contacto"
           fill
           className="object-cover object-center z-0"
